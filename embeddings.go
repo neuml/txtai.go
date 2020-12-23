@@ -7,40 +7,40 @@ import (
 
 // Embeddings definition
 type EmbeddingsAPI struct {
-	url	string
+	url string
 	api API
 }
 
 // Base input Document
 type Document struct {
-	Id string `json:"id"`
+	Id   string `json:"id"`
 	Text string `json:"text"`
 }
 
 // API score result
 type Score struct {
-	Id string `json:"id"`
+	Id    string  `json:"id"`
 	Score float64 `json:"score"`
 }
 
 // Creates an Embeddings instance.
 func Embeddings(url string) EmbeddingsAPI {
-	return EmbeddingsAPI {url, API {url}}
+	return EmbeddingsAPI{url, API{url}}
 }
 
 // Runs an Embeddings search. Returns []Score.
 func (embeddings *EmbeddingsAPI) Search(q string, n int) []Score {
 	var data [][]interface{}
 
-	embeddings.api.Get("search", map[string]string {
-    	"q": q,
-    	"n": strconv.Itoa(n),
+	embeddings.api.Get("search", map[string]string{
+		"q": q,
+		"n": strconv.Itoa(n),
 	}, &data)
 
 	// Transform arrays into scores
 	var scores []Score
 	for x := range data {
-		scores = append(scores, Score {data[x][0].(string), data[x][1].(float64)})
+		scores = append(scores, Score{data[x][0].(string), data[x][1].(float64)})
 	}
 
 	return scores
@@ -60,9 +60,9 @@ func (embeddings *EmbeddingsAPI) Index() {
 func (embeddings *EmbeddingsAPI) Similarity(search string, data []string) []float64 {
 	var scores []float64
 
-	embeddings.api.Post("similarity", map[string]interface{} {
+	embeddings.api.Post("similarity", map[string]interface{}{
 		"search": search,
-		"data": data,
+		"data":   data,
 	}, &scores)
 
 	return scores
@@ -72,7 +72,7 @@ func (embeddings *EmbeddingsAPI) Similarity(search string, data []string) []floa
 func (embeddings *EmbeddingsAPI) Embeddings(t string) []float64 {
 	var scores []float64
 
-	embeddings.api.Get("embeddings", map[string]string {
+	embeddings.api.Get("embeddings", map[string]string{
 		"t": t,
 	}, &scores)
 

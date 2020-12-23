@@ -45,5 +45,5 @@ func (api *API) Post(method string, params interface{}, result interface{}) {
 
 	if err != nil {
 		fmt.Println(err)
-	}	
+	}
 }
