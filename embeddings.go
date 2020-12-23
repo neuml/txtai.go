@@ -1,9 +1,7 @@
 // Embeddings definition
 package txtai
 
-import (
-	"strconv"
-)
+import "strconv"
 
 // Embeddings definition
 type EmbeddingsAPI struct {

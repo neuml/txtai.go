@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"txtai"
+	"github.com/neuml/txtai.go"
 )
 
 func argmax(values []float64) int {

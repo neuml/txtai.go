@@ -5,7 +5,7 @@ package main
 
 import (
 	"fmt"
-	"txtai"
+	"github.com/neuml/txtai.go"
 )
 
 func main() {

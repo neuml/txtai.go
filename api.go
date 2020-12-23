@@ -1,9 +1,10 @@
 // Base API definition
 package txtai
 
-import "fmt"
-
-import "github.com/go-resty/resty/v2"
+import (
+	"fmt"
+	"github.com/go-resty/resty/v2"
+)
 
 // Base API definition
 type API struct {
