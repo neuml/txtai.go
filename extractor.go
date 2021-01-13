@@ -7,12 +7,6 @@ type ExtractorAPI struct {
 	api API
 }
 
-// Text section
-type Section struct {
-	Id   int    `json:"id"`
-	Text string `json:"text"`
-}
-
 // Question parameters
 type Question struct {
 	Name     string `json:"name"`
@@ -23,7 +17,7 @@ type Question struct {
 
 // Answer response
 type Answer struct {
-	Question string `json:"question"`
+	Name string `json:"name"`
 	Answer   string `json:"answer"`
 }
 
@@ -33,19 +27,13 @@ func Extractor(url string) ExtractorAPI {
 }
 
 // Extracts answers to input questions.
-func (extractor *ExtractorAPI) Extract(documents []Section, queue []Question) []Answer {
-	var data [][]interface{}
+func (extractor *ExtractorAPI) Extract(queue []Question, texts []string) []Answer {
+	var answers []Answer
 
 	extractor.api.Post("extract", map[string]interface{}{
-		"documents": documents,
-		"queue":     queue,
-	}, &data)
-
-	// Transform arrays into answers
-	var answers []Answer
-	for x := range data {
-		answers = append(answers, Answer{data[x][0].(string), data[x][1].(string)})
-	}
+		"queue": queue,
+		"texts": texts,
+	}, &answers)
 
 	return answers
 }

@@ -12,20 +12,26 @@ func Labels(url string) LabelsAPI {
 	return LabelsAPI{url, API{url}}
 }
 
-// Applies a zero shot classifier to a text section using a list of labels.
-func (label *LabelsAPI) Label(text string, labels []string) []Score {
-	var data [][]interface{}
+// Applies a zero shot classifier to a text using a list of labels.
+func (label *LabelsAPI) Label(text string, labels []string) []IndexResult {
+	var results []IndexResult
 
 	label.api.Post("label", map[string]interface{}{
 		"text":   text,
 		"labels": labels,
-	}, &data)
+	}, &results)
 
-	// Transform arrays into scores
-	var scores []Score
-	for x := range data {
-		scores = append(scores, Score{data[x][0].(string), data[x][1].(float64)})
-	}
+	return results
+}
 
-	return scores
+// Applies a zero shot classifier to list of text using a list of labels.
+func (label *LabelsAPI) BatchLabel(texts []string, labels []string) []IndexResult {
+	var results []IndexResult
+
+	label.api.Post("batchlabel", map[string]interface{}{
+		"texts": texts,
+		"labels": labels,
+	}, &results)
+
+	return results
 }

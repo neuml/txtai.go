@@ -11,6 +11,12 @@ type API struct {
 	url string
 }
 
+// Index result
+type IndexResult struct {
+	Id    int `json:"id"`
+	Score float64 `json:"score"`
+}
+
 // Creates a new Resty request and returns it.
 func (api *API) Request(method string, result interface{}) *resty.Request {
 	request := resty.New().R()
