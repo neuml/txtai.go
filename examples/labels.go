@@ -1,6 +1,6 @@
 // Example labels functionality.
 //
-// Implements logic found in this notebook: https://github.com/neuml/txtai/blob/master/examples/05_Labeling_with_zero_shot_classification.ipynb
+// Implements logic found in this notebook: https://github.com/neuml/txtai/blob/master/examples/07_Apply_labels_with_zero_shot_classification.ipynb
 package main
 
 import (

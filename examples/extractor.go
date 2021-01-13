@@ -1,6 +1,6 @@
 // Example extractor functionality.
 //
-// Implements logic found in this notebook: https://github.com/neuml/txtai/blob/master/examples/02_Extractive_QA_with_txtai.ipynb
+// Implements logic found in this notebook: https://github.com/neuml/txtai/blob/master/examples/05_Extractive_QA_with_txtai.ipynb
 package main
 
 import (
