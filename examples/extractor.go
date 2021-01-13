@@ -24,14 +24,6 @@ func main() {
 		"Flyers 4 Lightning 1 final",
 		"Flyers win 4-1"}
 
-	var sections []txtai.Section
-	for x := range data {
-		sections = append(sections, txtai.Section{
-			Id:   x,
-			Text: data[x],
-		})
-	}
-
 	// Run series of questions
 	questions := []string{"What team won the game?", "What was score?"}
 	for _, query := range []string{"Red Sox - Blue Jays", "Phillies - Braves", "Dodgers - Giants", "Flyers - Lightning"} {
@@ -47,8 +39,8 @@ func main() {
 			})
 		}
 
-		for _, answer := range extractor.Extract(sections, queue) {
-			fmt.Println(answer.Question, answer.Answer)
+		for _, answer := range extractor.Extract(queue, data) {
+			fmt.Println(answer.Name, answer.Answer)
 		}
 		fmt.Println()
 	}
@@ -64,7 +56,7 @@ func main() {
 		Snippet:  false,
 	}}
 
-	for _, answer := range extractor.Extract(sections, queue) {
-		fmt.Println(answer.Question, answer.Answer)
+	for _, answer := range extractor.Extract(queue, data) {
+		fmt.Println(answer.Name, answer.Answer)
 	}
 }

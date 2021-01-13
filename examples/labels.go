@@ -12,7 +12,7 @@ import (
 func main() {
 	labels := txtai.Labels("http://localhost:8000")
 
-	sections := []string{"Dodgers lose again, give up 3 HRs in a loss to the Giants",
+	data := []string{"Dodgers lose again, give up 3 HRs in a loss to the Giants",
 		"Giants 5 Cardinals 4 final in extra innings",
 		"Dodgers drop Game 2 against the Giants, 5-4",
 		"Flyers 4 Lightning 1 final. 45 saves for the Lightning.",
@@ -31,9 +31,9 @@ func main() {
 	fmt.Printf("%-75s %s\n", "Text", "Label")
 	fmt.Println(strings.Repeat("-", 100))
 
-	for _, text := range sections {
-		scores := labels.Label(text, tags)
-		fmt.Printf("%-75s %s\n", text, scores[0].Id)
+	for _, text := range data {
+		label := labels.Label(text, tags)
+		fmt.Printf("%-75s %s\n", text, tags[label[0].Id])
 	}
 
 	fmt.Println()
@@ -42,8 +42,8 @@ func main() {
 
 	tags = []string{"😀", "😡"}
 
-	for _, text := range sections {
-		scores := labels.Label(text, tags)
-		fmt.Printf("%-75s %s\n", text, scores[0].Id)
+	for _, text := range data {
+		label := labels.Label(text, tags)
+		fmt.Printf("%-75s %s\n", text, tags[label[0].Id])
 	}
 }
