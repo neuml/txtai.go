@@ -10,6 +10,7 @@ import (
 
 func main() {
     service := "http://localhost:8000"
+
     segment := txtai.Segmentation(service)
 
     sentences := "This is a test. And another test."
