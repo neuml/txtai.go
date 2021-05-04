@@ -21,3 +21,8 @@ extractor: build
 labels: build
 	go build -o ${BUILD_DIR} labels.go
 	${BUILD_DIR}/labels
+
+# Pipelines test
+pipelines: build
+	go build -o ${BUILD_DIR} pipelines.go
+	${BUILD_DIR}/pipelines
