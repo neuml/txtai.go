@@ -5,101 +5,101 @@ import "strconv"
 
 // Embeddings definition
 type EmbeddingsAPI struct {
-	url string
-	api API
+    url string
+    api API
 }
 
 // Base input Document
 type Document struct {
-	Id   string `json:"id"`
-	Text string `json:"text"`
+    Id   string `json:"id"`
+    Text string `json:"text"`
 }
 
 // Search result
 type SearchResult struct {
-	Id    string `json:"id"`
-	Score float64 `json:"score"`
+    Id    string `json:"id"`
+    Score float64 `json:"score"`
 }
 
 // Creates an Embeddings instance.
 func Embeddings(url string) EmbeddingsAPI {
-	return EmbeddingsAPI{url, API{url}}
+    return EmbeddingsAPI{url, API{url}}
 }
 
 // Finds documents in the embeddings model most similar to the input query.
 func (embeddings *EmbeddingsAPI) Search(query string, limit int) []SearchResult {
-	var results []SearchResult
+    var results []SearchResult
 
-	embeddings.api.Get("search", map[string]string{
-		"query": query,
-		"limit": strconv.Itoa(limit),
-	}, &results)
+    embeddings.api.Get("search", map[string]string{
+        "query": query,
+        "limit": strconv.Itoa(limit),
+    }, &results)
 
-	return results;
+    return results;
 }
 
 // Finds documents in the embeddings model most similar to the input queries.
 func (embeddings *EmbeddingsAPI) BatchSearch(query string, limit int) [][]SearchResult {
-	var results [][]SearchResult
+    var results [][]SearchResult
 
-	embeddings.api.Get("batchsearch", map[string]string{
-		"queries": query,
-		"limit": strconv.Itoa(limit),
-	}, &results)
+    embeddings.api.Get("batchsearch", map[string]string{
+        "queries": query,
+        "limit": strconv.Itoa(limit),
+    }, &results)
 
-	return results;
+    return results;
 }
 
 // Adds a batch of documents for indexing.
 func (embeddings *EmbeddingsAPI) Add(documents interface{}) {
-	embeddings.api.Post("add", documents, nil)
+    embeddings.api.Post("add", documents, nil)
 }
 
 // Builds an embeddings index. No further documents can be added after this call.
 func (embeddings *EmbeddingsAPI) Index() {
-	embeddings.api.Get("index", nil, nil)
+    embeddings.api.Get("index", nil, nil)
 }
 
 // Computes the similarity between query and list of text.
 func (embeddings *EmbeddingsAPI) Similarity(query string, texts []string) []IndexResult {
-	var results []IndexResult
+    var results []IndexResult
 
-	embeddings.api.Post("similarity", map[string]interface{}{
-		"query": query,
-		"texts": texts,
-	}, &results)
+    embeddings.api.Post("similarity", map[string]interface{}{
+        "query": query,
+        "texts": texts,
+    }, &results)
 
-	return results
+    return results
 }
 
 // Computes the similarity between list of queries and list of text.
 func (embeddings *EmbeddingsAPI) BatchSimilarity(queries []string, texts []string) [][]IndexResult {
-	var results [][]IndexResult
+    var results [][]IndexResult
 
-	embeddings.api.Post("batchsimilarity", map[string]interface{}{
-		"queries": queries,
-		"texts": texts,
-	}, &results)
+    embeddings.api.Post("batchsimilarity", map[string]interface{}{
+        "queries": queries,
+        "texts": texts,
+    }, &results)
 
-	return results
+    return results
 }
 
 // Transforms text into an embeddings array.
 func (embeddings *EmbeddingsAPI) Transform(text string) []float64 {
-	var scores []float64
+    var scores []float64
 
-	embeddings.api.Get("transform", map[string]string{
-		"text": text,
-	}, &scores)
+    embeddings.api.Get("transform", map[string]string{
+        "text": text,
+    }, &scores)
 
-	return scores
+    return scores
 }
 
 // Transforms list of text into embeddings array.
 func (embeddings *EmbeddingsAPI) BatchTransform(texts []string) [][]float64 {
-	var scores [][]float64
+    var scores [][]float64
 
-	embeddings.api.Post("batchtransform", texts, &scores)
+    embeddings.api.Post("batchtransform", texts, &scores)
 
-	return scores
+    return scores
 }
