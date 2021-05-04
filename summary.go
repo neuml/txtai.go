@@ -17,8 +17,8 @@ func Summary(url string) SummaryAPI {
 }
 
 // Runs a summarization model against a block of text.
-func (summary *SummaryAPI) Summary(text string, minlength int, maxlength int) interface{} {
-    var results interface{}
+func (summary *SummaryAPI) Summary(text string, minlength int, maxlength int) string {
+    var results string
 
     params := map[string]string {
         "text": text,
@@ -37,8 +37,8 @@ func (summary *SummaryAPI) Summary(text string, minlength int, maxlength int) in
 }
 
 // Runs a summarization model against a block of text.
-func (summary *SummaryAPI) BatchSummary(texts []string, minlength int, maxlength int) []interface{} {
-    var results []interface{}
+func (summary *SummaryAPI) BatchSummary(texts []string, minlength int, maxlength int) []string {
+    var results []string
 
     params := map[string]interface{} {
         "texts": texts,

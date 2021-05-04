@@ -13,8 +13,8 @@ func Transcription(url string) TranscriptionAPI {
 }
 
 // Transcribes audio files to text.
-func (transcription *TranscriptionAPI) Transcribe(file string) interface{} {
-    var results interface{}
+func (transcription *TranscriptionAPI) Transcribe(file string) string {
+    var results string
 
     transcription.api.Get("transcribe", map[string]string{
         "file": file,
@@ -24,8 +24,8 @@ func (transcription *TranscriptionAPI) Transcribe(file string) interface{} {
 }
 
 // Transcribes audio files to text.
-func (transcription *TranscriptionAPI) BatchTranscribe(files []string) []interface{} {
-    var results []interface{}
+func (transcription *TranscriptionAPI) BatchTranscribe(files []string) []string {
+    var results []string
 
     transcription.api.Post("batchtranscribe", map[string]interface{}{
         "files": files,

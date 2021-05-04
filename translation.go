@@ -13,8 +13,8 @@ func Translation(url string) TranslationAPI {
 }
 
 // Translates text from source language into target language.
-func (translation *TranslationAPI) Translate(text string, target string, source string) interface{} {
-    var results interface{}
+func (translation *TranslationAPI) Translate(text string, target string, source string) string {
+    var results string
 
     params := map[string]string {
         "text": text,
@@ -33,8 +33,8 @@ func (translation *TranslationAPI) Translate(text string, target string, source 
 }
 
 // Translates text from source language into target language.
-func (translation *TranslationAPI) BatchTranslate(texts []string, target string, source string) []interface{} {
-    var results []interface{}
+func (translation *TranslationAPI) BatchTranslate(texts []string, target string, source string) []string {
+    var results []string
 
     params := map[string]interface{} {
         "texts": texts,
