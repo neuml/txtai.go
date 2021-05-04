@@ -29,11 +29,11 @@ func main() {
 	fmt.Println("\n---- Summary Text ----")
 	fmt.Println(summarytext)
 
-    translate := txtai.Translation(service)
-    translation := translate.Translate(summarytext.(string), "es", "")
+	translate := txtai.Translation(service)
+	translation := translate.Translate(summarytext.(string), "es", "")
 
-    fmt.Println("\n---- Summary Text in Spanish ----")
-    fmt.Println(translation)
+	fmt.Println("\n---- Summary Text in Spanish ----")
+	fmt.Println(translation)
 
 	workflow := txtai.Workflow(service)
 	output := workflow.Workflow("sumspanish", []string {text.(string)})
