@@ -55,9 +55,32 @@ func (embeddings *EmbeddingsAPI) Add(documents interface{}) {
     embeddings.api.Post("add", documents, nil)
 }
 
-// Builds an embeddings index. No further documents can be added after this call.
+// Builds an embeddings index for previously batched documents.
 func (embeddings *EmbeddingsAPI) Index() {
     embeddings.api.Get("index", nil, nil)
+}
+
+// Runs an embeddings upsert operation for previously batched documents.
+func (embeddings *EmbeddingsAPI) Upsert() {
+    embeddings.api.Get("upsert", nil, nil)
+}
+
+// Deletes from an embeddings index. Returns list of ids deleted.
+func (embeddings *EmbeddingsAPI) Delete(ids []string) []string {
+    var dids []string
+
+    embeddings.api.Post("delete", ids, &dids)
+
+    return dids
+}
+
+// Total number of elements in this embeddings index.
+func (embeddings *EmbeddingsAPI) Count() int {
+    var count int
+
+    embeddings.api.Get("count", nil, &count)
+
+    return count
 }
 
 // Computes the similarity between query and list of text.

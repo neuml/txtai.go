@@ -49,4 +49,28 @@ func main() {
         uid, _ := strconv.Atoi(results[0].Id)
         fmt.Printf("%-20s %s\n", query, data[uid])
     }
+
+    data[0] = "Feel good story: baby panda born"
+
+    var updates []txtai.Document
+    updates = append(updates, txtai.Document {
+        Id: "0",
+        Text: data[0],
+    })
+
+    embeddings.Delete([]string{"5"})
+    embeddings.Add(updates)
+    embeddings.Upsert();
+
+    fmt.Println("\nTest delete/upsert/count")
+    fmt.Printf("%-20s %s\n", "Query", "Best Match")
+    fmt.Println(strings.Repeat("-", 50))
+
+    query := "feel good story";
+    results := embeddings.Search(query, 1);
+    uid, _ := strconv.Atoi(results[0].Id)
+    fmt.Printf("%-20s %s\n", query, data[uid])
+
+    count := embeddings.Count();
+    fmt.Printf("\nTotal Count: %d\n", count)
 }
