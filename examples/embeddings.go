@@ -32,7 +32,7 @@ func main() {
     fmt.Printf("%-20s %s\n", "Query", "Best Match")
     fmt.Println(strings.Repeat("-", 50))
 
-    for _, query := range []string{"feel good story", "climate change", "health", "war", "wildlife", "asia", "north america", "dishonest junk"} {
+    for _, query := range []string{"feel good story", "climate change", "public health story", "war", "wildlife", "asia", "lucky", "dishonest junk"} {
         results := embeddings.Similarity(query, data)
         fmt.Printf("%-20s %s\n", query, data[results[0].Id])
     }
@@ -44,13 +44,13 @@ func main() {
     fmt.Printf("%-20s %s\n", "Query", "Best Match")
     fmt.Println(strings.Repeat("-", 50))
 
-    for _, query := range []string{"feel good story", "climate change", "health", "war", "wildlife", "asia", "north america", "dishonest junk"} {
+    for _, query := range []string{"feel good story", "climate change", "public health story", "war", "wildlife", "asia", "lucky", "dishonest junk"} {
         results := embeddings.Search(query, 1)
         uid, _ := strconv.Atoi(results[0].Id)
         fmt.Printf("%-20s %s\n", query, data[uid])
     }
 
-    data[0] = "Feel good story: baby panda born"
+    data[0] = "See it: baby panda born"
 
     var updates []txtai.Document
     updates = append(updates, txtai.Document {
