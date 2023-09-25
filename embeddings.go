@@ -97,7 +97,7 @@ func (embeddings *EmbeddingsAPI) Delete(ids []string) []string {
 }
 
 // Reindex with new configuration
-func (embeddings *EmbeddingsAPI) Reindex(config interface{}, function string) int {
+func (embeddings *EmbeddingsAPI) Reindex(config interface{}, function string) {
     params := map[string]interface{} {
         "config": config,
     }
