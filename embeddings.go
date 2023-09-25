@@ -27,25 +27,47 @@ func Embeddings(url string) EmbeddingsAPI {
 }
 
 // Finds documents in the embeddings model most similar to the input query.
-func (embeddings *EmbeddingsAPI) Search(query string, limit int) []SearchResult {
+func (embeddings *EmbeddingsAPI) Search(query string, limit int, weights float64, index string) []SearchResult {
     var results []SearchResult
 
-    embeddings.api.Get("search", map[string]string{
+    params := map[string]interface{} {
         "query": query,
-        "limit": strconv.Itoa(limit),
-    }, &results)
+    }
+
+    if limit != -1 {
+        params["limit"] = strconv.Itoa(limit)
+    }
+    if weights != -1.0 {
+        params["weights"] = strconv.FormatFloat(weights, 'f', -1, 64)
+    }
+    if index != nil {
+        params["index"] = index
+    }
+
+    embeddings.api.Get("search", params, &results)
 
     return results;
 }
 
 // Finds documents in the embeddings model most similar to the input queries.
-func (embeddings *EmbeddingsAPI) BatchSearch(query string, limit int) [][]SearchResult {
+func (embeddings *EmbeddingsAPI) BatchSearch(queries []string, limit int, weights float64, index string) [][]SearchResult {
     var results [][]SearchResult
 
-    embeddings.api.Get("batchsearch", map[string]string{
-        "queries": query,
-        "limit": strconv.Itoa(limit),
-    }, &results)
+    params := map[string]interface{} {
+        "queries": queries,
+    }
+
+    if limit != -1 {
+        params["limit"] = strconv.Itoa(limit)
+    }
+    if weights != -1.0 {
+        params["weights"] = strconv.FormatFloat(weights, 'f', -1, 64)
+    }
+    if index != nil {
+        params["index"] = index
+    }
+
+    embeddings.api.Post("batchsearch", params, &results)
 
     return results;
 }
@@ -72,6 +94,19 @@ func (embeddings *EmbeddingsAPI) Delete(ids []string) []string {
     embeddings.api.Post("delete", ids, &dids)
 
     return dids
+}
+
+// Reindex with new configuration
+func (embeddings *EmbeddingsAPI) Reindex(config interface{}, function string) int {
+    params := map[string]interface{} {
+        "config": config,
+    }
+
+    if function != nil {
+        params["function"] = function
+    }
+
+    embeddings.api.Post("reindex", params, nil)
 }
 
 // Total number of elements in this embeddings index.

@@ -45,7 +45,7 @@ func main() {
     fmt.Println(strings.Repeat("-", 50))
 
     for _, query := range []string{"feel good story", "climate change", "public health story", "war", "wildlife", "asia", "lucky", "dishonest junk"} {
-        results := embeddings.Search(query, 1)
+        results := embeddings.Search(query, 1, -1.0, nil)
         uid, _ := strconv.Atoi(results[0].Id)
         fmt.Printf("%-20s %s\n", query, data[uid])
     }
@@ -67,7 +67,7 @@ func main() {
     fmt.Println(strings.Repeat("-", 50))
 
     query := "feel good story";
-    results := embeddings.Search(query, 1);
+    results := embeddings.Search(query, 1, -1.0, nil);
     uid, _ := strconv.Atoi(results[0].Id)
     fmt.Printf("%-20s %s\n", query, data[uid])
 
