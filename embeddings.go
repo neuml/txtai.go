@@ -30,7 +30,7 @@ func Embeddings(url string) EmbeddingsAPI {
 func (embeddings *EmbeddingsAPI) Search(query string, limit int, weights float64, index string) []SearchResult {
     var results []SearchResult
 
-    params := map[string]interface{} {
+    params := map[string]string {
         "query": query,
     }
 
@@ -40,7 +40,7 @@ func (embeddings *EmbeddingsAPI) Search(query string, limit int, weights float64
     if weights != -1.0 {
         params["weights"] = strconv.FormatFloat(weights, 'f', -1, 64)
     }
-    if index != nil {
+    if index != "" {
         params["index"] = index
     }
 
@@ -58,12 +58,12 @@ func (embeddings *EmbeddingsAPI) BatchSearch(queries []string, limit int, weight
     }
 
     if limit != -1 {
-        params["limit"] = strconv.Itoa(limit)
+        params["limit"] = limit
     }
     if weights != -1.0 {
-        params["weights"] = strconv.FormatFloat(weights, 'f', -1, 64)
+        params["weights"] = weights
     }
-    if index != nil {
+    if index != "" {
         params["index"] = index
     }
 
@@ -102,7 +102,7 @@ func (embeddings *EmbeddingsAPI) Reindex(config interface{}, function string) in
         "config": config,
     }
 
-    if function != nil {
+    if function != "" {
         params["function"] = function
     }
 
