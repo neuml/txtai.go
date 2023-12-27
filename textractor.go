@@ -3,13 +3,12 @@ package txtai
 
 // Textractor definition
 type TextractorAPI struct {
-    url string
     api API
 }
 
 // Creates a Textractor instance.
-func Textractor(url string) TextractorAPI {
-    return TextractorAPI{url, API{url}}
+func Textractor(params ...string) TextractorAPI {
+    return TextractorAPI{NewAPI(params...)}
 }
 
 // Extracts text from a file at path.

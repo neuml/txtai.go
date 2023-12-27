@@ -3,13 +3,12 @@ package txtai
 
 // Workflow definition
 type WorkflowAPI struct {
-    url string
     api API
 }
 
 // Creates a Workflow instance.
-func Workflow(url string) WorkflowAPI {
-    return WorkflowAPI{url, API{url}}
+func Workflow(params ...string) WorkflowAPI {
+    return WorkflowAPI{NewAPI(params...)}
 }
 
 // Segments text into semantic units.

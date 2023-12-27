@@ -3,7 +3,6 @@ package txtai
 
 // Extractor definition
 type ExtractorAPI struct {
-    url string
     api API
 }
 
@@ -22,8 +21,8 @@ type Answer struct {
 }
 
 // Creates an Extractor instance.
-func Extractor(url string) ExtractorAPI {
-    return ExtractorAPI{url, API{url}}
+func Extractor(params ...string) ExtractorAPI {
+    return ExtractorAPI{NewAPI(params...)}
 }
 
 // Extracts answers to input questions.

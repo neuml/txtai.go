@@ -3,13 +3,12 @@ package txtai
 
 // Segmentation definition
 type SegmentationAPI struct {
-    url string
     api API
 }
 
 // Creates a Segmentation instance.
-func Segmentation(url string) SegmentationAPI {
-    return SegmentationAPI{url, API{url}}
+func Segmentation(params ...string) SegmentationAPI {
+    return SegmentationAPI{NewAPI(params...)}
 }
 
 // Segments text into semantic units.

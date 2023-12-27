@@ -3,13 +3,12 @@ package txtai
 
 // Translation definition
 type TranslationAPI struct {
-    url string
     api API
 }
 
 // Creates a Translation instance.
-func Translation(url string) TranslationAPI {
-    return TranslationAPI{url, API{url}}
+func Translation(params ...string) TranslationAPI {
+    return TranslationAPI{NewAPI(params...)}
 }
 
 // Translates text from source language into target language.

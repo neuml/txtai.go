@@ -3,13 +3,12 @@ package txtai
 
 // Labels definition
 type LabelsAPI struct {
-    url string
     api API
 }
 
 // Creates a Labels instance.
-func Labels(url string) LabelsAPI {
-    return LabelsAPI{url, API{url}}
+func Labels(params ...string) LabelsAPI {
+    return LabelsAPI{NewAPI(params...)}
 }
 
 // Applies a zero shot classifier to a text using a list of labels.

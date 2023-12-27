@@ -5,7 +5,6 @@ import "strconv"
 
 // Embeddings definition
 type EmbeddingsAPI struct {
-    url string
     api API
 }
 
@@ -22,8 +21,8 @@ type SearchResult struct {
 }
 
 // Creates an Embeddings instance.
-func Embeddings(url string) EmbeddingsAPI {
-    return EmbeddingsAPI{url, API{url}}
+func Embeddings(params ...string) EmbeddingsAPI {
+    return EmbeddingsAPI{NewAPI(params...)}
 }
 
 // Finds documents in the embeddings model most similar to the input query.

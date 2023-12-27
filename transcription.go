@@ -3,13 +3,12 @@ package txtai
 
 // Transcription definition
 type TranscriptionAPI struct {
-    url string
     api API
 }
 
 // Creates a Transcription instance.
-func Transcription(url string) TranscriptionAPI {
-    return TranscriptionAPI{url, API{url}}
+func Transcription(params ...string) TranscriptionAPI {
+    return TranscriptionAPI{NewAPI(params...)}
 }
 
 // Transcribes audio files to text.

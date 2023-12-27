@@ -7,13 +7,12 @@ import (
 
 // Summary definition
 type SummaryAPI struct {
-    url string
     api API
 }
 
 // Creates a Summary instance.
-func Summary(url string) SummaryAPI {
-    return SummaryAPI{url, API{url}}
+func Summary(params ...string) SummaryAPI {
+    return SummaryAPI{NewAPI(params...)}
 }
 
 // Runs a summarization model against a block of text.

@@ -3,13 +3,12 @@ package txtai
 
 // Similarity definition
 type SimilarityAPI struct {
-    url string
     api API
 }
 
 // Creates a Similarity instance.
-func Similarity(url string) SimilarityAPI {
-    return SimilarityAPI{url, API{url}}
+func Similarity(params ...string) SimilarityAPI {
+    return SimilarityAPI{NewAPI(params...)}
 }
 
 // Computes the similarity between query and list of text.
