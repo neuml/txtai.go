@@ -17,6 +17,7 @@ type Document struct {
 // Search result
 type SearchResult struct {
     Id    string `json:"id"`
+    Text  string `json:"text"`
     Score float64 `json:"score"`
 }
 
