@@ -1,4 +1,4 @@
-module github.com/neuml/txtai.go
+module github.com/neuml/txtai.go/v8
 
 go 1.14
 
