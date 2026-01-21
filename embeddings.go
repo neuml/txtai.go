@@ -161,3 +161,23 @@ func (embeddings *EmbeddingsAPI) BatchTransform(texts []string) [][]float64 {
 
     return scores
 }
+
+// Adds a batch of binary objects for indexing using byte arrays.
+func (embeddings *EmbeddingsAPI) AddObject(data [][]byte, uid []string, field string) {
+    embeddings.api.PostMultipart("addobject", data, uid, field)
+}
+
+// Adds a batch of binary objects for indexing using file paths.
+func (embeddings *EmbeddingsAPI) AddObjectFiles(files []string, uid []string, field string) {
+    embeddings.api.PostFiles("addobject", files, uid, field)
+}
+
+// Adds a batch of images for indexing using byte arrays.
+func (embeddings *EmbeddingsAPI) AddImage(data [][]byte, uid []string, field string) {
+    embeddings.api.PostMultipart("addimage", data, uid, field)
+}
+
+// Adds a batch of images for indexing using file paths.
+func (embeddings *EmbeddingsAPI) AddImageFiles(files []string, uid []string, field string) {
+    embeddings.api.PostFiles("addimage", files, uid, field)
+}

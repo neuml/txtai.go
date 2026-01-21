@@ -3,6 +3,7 @@ package txtai
 
 import (
     "fmt"
+    "io"
     "github.com/go-resty/resty/v2"
     "os"
 )
@@ -81,6 +82,88 @@ func (api *API) Post(method string, params interface{}, result interface{}) {
     if err != nil {
         fmt.Println(err)
     }
+}
+
+// Executes a multipart form POST request with files.
+func (api *API) PostFiles(method string, files []string, uid []string, field string) {
+    request := api.Request(method, nil)
+
+    // Add files
+    for _, filePath := range files {
+        request.SetFile("data", filePath)
+    }
+
+    // Add uid values
+    if uid != nil {
+        for _, id := range uid {
+            request.SetFormData(map[string]string{"uid": id})
+        }
+    }
+
+    // Add field
+    if field != "" {
+        request.SetFormData(map[string]string{"field": field})
+    }
+
+    // Set headers and run request
+    request = api.Headers(request)
+    _, err := request.Post(api.url + "/" + method)
+
+    if err != nil {
+        fmt.Println(err)
+    }
+}
+
+// Executes a multipart form POST request with byte data.
+func (api *API) PostMultipart(method string, data [][]byte, uid []string, field string) {
+    request := api.Request(method, nil)
+
+    // Add binary data as multipart files
+    for i, d := range data {
+        fileName := fmt.Sprintf("file%d", i)
+        request.SetFileReader("data", fileName, NewByteReader(d))
+    }
+
+    // Add uid values
+    if uid != nil {
+        for _, id := range uid {
+            request.SetFormData(map[string]string{"uid": id})
+        }
+    }
+
+    // Add field
+    if field != "" {
+        request.SetFormData(map[string]string{"field": field})
+    }
+
+    // Set headers and run request
+    request = api.Headers(request)
+    _, err := request.Post(api.url + "/" + method)
+
+    if err != nil {
+        fmt.Println(err)
+    }
+}
+
+// ByteReader wraps a byte slice to implement io.Reader
+type ByteReader struct {
+    data []byte
+    pos  int
+}
+
+// NewByteReader creates a new ByteReader
+func NewByteReader(data []byte) *ByteReader {
+    return &ByteReader{data: data, pos: 0}
+}
+
+// Read implements io.Reader
+func (r *ByteReader) Read(p []byte) (n int, err error) {
+    if r.pos >= len(r.data) {
+        return 0, io.EOF
+    }
+    n = copy(p, r.data[r.pos:])
+    r.pos += n
+    return n, nil
 }
 
 // Adds headers
